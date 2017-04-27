@@ -13,7 +13,7 @@ class App extends React.Component {
         {' | '}
         <Link to="/fuel-savings">Brew</Link>
         {' | '}
-        <Link to="/fuel-savings">Recipies</Link>
+        <Link to="/fuel-savings">Recipes</Link>
         {' | '}
         <Link to="/about">History</Link>
         <br/>

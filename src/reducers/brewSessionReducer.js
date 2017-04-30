@@ -1,4 +1,6 @@
-import {READ_TEMP_SENSOR, READ_TEMP_STARTED, READ_TEMP_SUCCEEDED, READ_TEMP_FAILED} from '../constants/actionTypes';
+import {READ_TEMP_STARTED, READ_TEMP_SUCCEEDED, READ_TEMP_FAILED} from '../constants/actionTypes';
+import {READ_PUMP_STARTED, READ_PUMP_SUCCEEDED, READ_PUMP_FAILED} from '../constants/actionTypes';
+import {READ_HEATER_STARTED, READ_HEATER_SUCCEEDED, READ_HEATER_FAILED} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
 
@@ -11,20 +13,19 @@ export default function brewSessionReducer(state = initialState.brewSession, act
   let newState;
 
   switch (action.type) {
-    case READ_TEMP_SENSOR:
-      newState = objectAssign({}, state);
-      newState.degreesF = state.degreesF + 1;
-      return newState;
-
       case READ_TEMP_STARTED:
-        newState = objectAssign({}, state);
-        if (action.isLoading) {
-          newState.degreesF = 2;
-        }
-        else {
-          newState.degreesF = 3;
-        }
-        return newState;
+        // example to show "loading" and "done" states in the UI.
+        // newState = objectAssign({}, state);
+        // if (action.isLoading) {
+        //   newState.degreesF = 2;
+        // }
+        // else {
+        //   newState.degreesF = 3;
+        // }
+        // return newState;
+
+        // don't show anything different while loading.
+        return state;
 
     case READ_TEMP_SUCCEEDED:
         newState = objectAssign({}, state);
@@ -35,6 +36,32 @@ export default function brewSessionReducer(state = initialState.brewSession, act
         newState = objectAssign({}, state);
         newState.degreesF = -1;
         return newState;
+
+    case READ_PUMP_STARTED:
+        return state;
+
+    case READ_PUMP_SUCCEEDED:
+        newState = objectAssign({}, state);
+        newState.pumpStatus = action.status.description;
+        return newState;  
+
+    case READ_PUMP_FAILED:
+        newState = objectAssign({}, state);
+        newState.pumpStatus = 'error';
+        return newState;
+
+    case READ_HEATER_STARTED:
+        return state;
+
+    case READ_HEATER_SUCCEEDED:
+        newState = objectAssign({}, state);
+        newState.heaterStatus = action.status.description;
+        return newState;  
+
+    case READ_HEATER_FAILED:
+        newState = objectAssign({}, state);
+        newState.heaterStatus = 'error';
+        return newState;        
 
     default:
       return state;

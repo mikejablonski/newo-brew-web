@@ -16,6 +16,8 @@ export default {
     }
   },
   brewSession: {
-    degreesF: 0
+    degreesF: 0,
+    pumpStatus: 'off',
+    heaterStatus: 'off'
   }
 };

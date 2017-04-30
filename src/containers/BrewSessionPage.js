@@ -9,6 +9,8 @@ export const BrewSessionPage = (props) => {
   return (
     <BrewSessionForm
       getTemp={props.actions.getTemp}
+      getPumpStatus={props.actions.getPumpStatus}
+      getHeaterStatus={props.actions.getHeaterStatus}
       brewSession={props.brewSession}
     />
   );

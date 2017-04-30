@@ -13,25 +13,28 @@ export default function brewSessionReducer(state = initialState.brewSession, act
   switch (action.type) {
     case READ_TEMP_SENSOR:
       newState = objectAssign({}, state);
-      newState[action.fieldName] = action.value;
       newState.degreesF = state.degreesF + 1;
-
       return newState;
 
       case READ_TEMP_STARTED:
-        return state;
+        newState = objectAssign({}, state);
+        if (action.isLoading) {
+          newState.degreesF = 2;
+        }
+        else {
+          newState.degreesF = 3;
+        }
+        return newState;
 
     case READ_TEMP_SUCCEEDED:
         newState = objectAssign({}, state);
-        newState[action.fieldName] = action.value;
-        newState.degreesF = action.payload.degreesF;
-        break;
+        newState.degreesF = action.temp.degreesF;
+        return newState;
 
     case READ_TEMP_FAILED:
         newState = objectAssign({}, state);
-        newState[action.fieldName] = action.value;
         newState.degreesF = -1;
-        break;
+        return newState;
 
     default:
       return state;

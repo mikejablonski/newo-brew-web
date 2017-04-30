@@ -9,7 +9,7 @@ class BrewSessionForm extends React.Component {
   }
 
   refreshTemp() {
-    this.props.getTemp();
+    this.props.getTemp('http://raspberrypi.local:3001/temp');
   }
 
   render() {

@@ -1,14 +1,41 @@
 import * as types from '../constants/actionTypes';
 
-// example of a thunk using the redux-thunk middleware
-export function getTemp() {
-  return function (dispatch) {
-    // thunks allow for pre-processing actions, calling apis, and dispatching multiple actions
-    // in this case at this point we could call a service that would persist the fuel savings
-    dispatch({type: types.READ_TEMP_STARTED});
+export function tempHasErrored(bool) {
+    return {
+        type: types.READ_TEMP_FAILED,
+        hasErrored: bool
+    };
+}
+export function tempIsLoading(bool) {
+    console.log('tempIsLoading ', bool);
+    return {
+        type: types.READ_TEMP_STARTED,
+        isLoading: bool
+    };
+}
+export function tempFetchDataSuccess(temp) {
+    return {
+        type: types.READ_TEMP_SUCCEEDED,
+        temp
+    };
+}
 
-    fetch('http://localhost:3001/temp')
-        .then(response => dispatch({type: types.READ_TEMP_SUCCEEDED, payload: response}))
-        .catch(error => dispatch({type: types.READ_TEMP_FAILED, error: error}));
-  };
+export function getTemp(url) {
+    return (dispatch) => {
+        console.log('in action getTemp ', url);
+        dispatch(tempIsLoading(true));
+        fetch(url)
+            .then((response) => {
+                console.log('got response');
+                console.log(response);
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(tempIsLoading(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((temp) => dispatch(tempFetchDataSuccess(temp)))
+            .catch(() => dispatch(tempHasErrored(true)));
+    };
 }

@@ -37,7 +37,6 @@ class BrewSessionForm extends React.Component {
         <p>Temperature: {brewSession.degreesF}</p>
         <p>Pump Status: {brewSession.pumpStatus}</p>
         <p>Heater Status: {brewSession.heaterStatus}</p>
-        <input type="submit" value="Refresh" onClick={this.refreshTemp}/>
       </div>
     );
   }

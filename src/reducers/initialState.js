@@ -19,5 +19,8 @@ export default {
     degreesF: 0,
     pumpStatus: 'off',
     heaterStatus: 'off'
+  },
+  brewSessionStatus: {
+    isBrewSessionRunning: false
   }
 };

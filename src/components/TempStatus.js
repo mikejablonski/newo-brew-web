@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class BrewSessionStatus extends React.Component {
+class TempStatus extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -19,7 +19,7 @@ class BrewSessionStatus extends React.Component {
   }
 
   refreshStatus() {
-    this.props.getIsBrewSessionRunning('http://raspberrypi.local:3001/brew');
+    this.props.getTemp('http://raspberrypi.local:3001/temp');
 
     this.timer = setTimeout(() => {
       this.refreshStatus();
@@ -27,20 +27,19 @@ class BrewSessionStatus extends React.Component {
   }
 
   render() {
-    const {brewSessionStatus} = this.props;
+    const {brewSession} = this.props;
 
     return (
       <div>
-        <h2>Brew Session</h2>
-        <p>Brew Session Running: {brewSessionStatus.isBrewSessionRunning.toString()}</p>
+        <p>Temperature: {brewSession.degreesF}</p>
       </div>
     );
   }
 }
 
-BrewSessionStatus.propTypes = {
-  getIsBrewSessionRunning: PropTypes.func.isRequired,
-  brewSessionStatus: PropTypes.object.isRequired
+TempStatus.propTypes = {
+  getTemp: PropTypes.func.isRequired,
+  brewSession: PropTypes.object.isRequired
 };
 
-export default BrewSessionStatus;
+export default TempStatus;

@@ -19,7 +19,6 @@ class BrewSessionForm extends React.Component {
   }  
 
   refreshTemp() {
-    this.props.getTemp('http://raspberrypi.local:3001/temp');
     this.props.getPumpStatus('http://raspberrypi.local:3001/pump');
     this.props.getHeaterStatus('http://raspberrypi.local:3001/heater');
 
@@ -33,8 +32,6 @@ class BrewSessionForm extends React.Component {
 
     return (
       <div>
-        <h2>Brew Session</h2>
-        <p>Temperature: {brewSession.degreesF}</p>
         <p>Pump Status: {brewSession.pumpStatus}</p>
         <p>Heater Status: {brewSession.heaterStatus}</p>
       </div>
@@ -43,7 +40,6 @@ class BrewSessionForm extends React.Component {
 }
 
 BrewSessionForm.propTypes = {
-  getTemp: PropTypes.func.isRequired,
   getPumpStatus: PropTypes.func.isRequired,
   getHeaterStatus: PropTypes.func.isRequired,
   brewSession: PropTypes.object.isRequired

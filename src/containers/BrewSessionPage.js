@@ -17,7 +17,7 @@ export const BrewSessionPage = (props) => {
         getIsBrewSessionRunning={props.brewSessionStatusActions.getIsBrewSessionRunning}
       />
       <TempStatus
-        brewSession={props.brewSession}
+        tempStatus={props.tempStatus}
         getTemp={props.tempStatusActions.getTemp}
       />
       <BrewSessionForm
@@ -32,15 +32,18 @@ export const BrewSessionPage = (props) => {
 BrewSessionPage.propTypes = {
   actions: PropTypes.object.isRequired,
   brewSessionStatusActions: PropTypes.object.isRequired,
+  tempStatusActions: PropTypes.object.isRequired,
+
   brewSession: PropTypes.object.isRequired,
   brewSessionStatus: PropTypes.object.isRequired,
-  tempStatusActions: PropTypes.object.isRequired
+  tempStatus: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     brewSession: state.brewSession,
-    brewSessionStatus: state.brewSessionStatus
+    brewSessionStatus: state.brewSessionStatus,
+    tempStatus: state.tempStatus
   };
 }
 

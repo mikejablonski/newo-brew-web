@@ -27,11 +27,11 @@ class TempStatus extends React.Component {
   }
 
   render() {
-    const {brewSession} = this.props;
+    const {tempStatus} = this.props;
 
     return (
       <div>
-        <p>Temperature: {brewSession.degreesF}</p>
+        <p>Temperature: {tempStatus.degreesF}</p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ class TempStatus extends React.Component {
 
 TempStatus.propTypes = {
   getTemp: PropTypes.func.isRequired,
-  brewSession: PropTypes.object.isRequired
+  tempStatus: PropTypes.object.isRequired
 };
 
 export default TempStatus;

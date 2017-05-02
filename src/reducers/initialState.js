@@ -16,11 +16,13 @@ export default {
     }
   },
   brewSession: {
-    degreesF: 0,
     pumpStatus: 'off',
     heaterStatus: 'off'
   },
   brewSessionStatus: {
     isBrewSessionRunning: false
+  },
+  tempStatus: {
+    degreesF: 0
   }
 };

@@ -1,4 +1,3 @@
-import {READ_TEMP_STARTED, READ_TEMP_SUCCEEDED, READ_TEMP_FAILED} from '../constants/actionTypes';
 import {READ_PUMP_STARTED, READ_PUMP_SUCCEEDED, READ_PUMP_FAILED} from '../constants/actionTypes';
 import {READ_HEATER_STARTED, READ_HEATER_SUCCEEDED, READ_HEATER_FAILED} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
@@ -13,30 +12,6 @@ export default function brewSessionReducer(state = initialState.brewSession, act
   let newState;
 
   switch (action.type) {
-      case READ_TEMP_STARTED:
-        // example to show "loading" and "done" states in the UI.
-        // newState = objectAssign({}, state);
-        // if (action.isLoading) {
-        //   newState.degreesF = 2;
-        // }
-        // else {
-        //   newState.degreesF = 3;
-        // }
-        // return newState;
-
-        // don't show anything different while loading.
-        return state;
-
-    case READ_TEMP_SUCCEEDED:
-        newState = objectAssign({}, state);
-        newState.degreesF = action.temp.degreesF;
-        return newState;
-
-    case READ_TEMP_FAILED:
-        newState = objectAssign({}, state);
-        newState.degreesF = -1;
-        return newState;
-
     case READ_PUMP_STARTED:
         return state;
 

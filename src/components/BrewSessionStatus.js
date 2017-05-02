@@ -38,11 +38,30 @@ class BrewSessionStatus extends React.Component {
 
   render() {
     const {brewSessionStatus} = this.props;
-
+    const labelStyle = {
+      float: 'left',
+      'padding-right': '6px'
+    }
     return (
       <div>
         <h2>Brew Session</h2>
         <p>Brew Session Running: {brewSessionStatus.isBrewSessionRunning.toString()}</p>
+        <div>
+          <label htmlFor="brewSessionName" style={labelStyle}>Brew Session Name</label>
+          <input type="text" name="brewSessionName"/>
+        </div>
+        <div>
+          <label htmlFor="targetMashTemp" style={labelStyle}>Target Mash Temp</label>
+          <input type="text" name="targetMashTemp"/>
+        </div>
+        <div>
+          <label htmlFor="mashTime" style={labelStyle}>Mash Time</label>
+          <input type="text" name="mashTime"/>
+        </div>
+        <div>
+          <label htmlFor="boilTime" style={labelStyle}>Boil Time</label>
+          <input type="text" name="boilTime"/>
+        </div>
         {brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Stop" onClick={this.startStop}/>}
         {!brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Start" onClick={this.startStop}/>}
       </div>

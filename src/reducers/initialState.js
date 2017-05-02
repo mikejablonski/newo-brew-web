@@ -20,7 +20,8 @@ export default {
     heaterStatus: 'off'
   },
   brewSessionStatus: {
-    isBrewSessionRunning: false
+    isBrewSessionRunning: false,
+    data: {}
   },
   tempStatus: {
     degreesF: 0

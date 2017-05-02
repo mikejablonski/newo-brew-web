@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 
 class BrewSessionStatus extends React.Component {
   constructor(props, context) {
@@ -13,6 +14,11 @@ class BrewSessionStatus extends React.Component {
     this.timer = setTimeout(() => {
       this.refreshStatus();
     }, 1000);
+
+    this.refreshChart();
+    this.chartTimer = setTimeout(() => {
+      this.refreshChart();
+    }, 30000);
   }
 
   componentWillUnmount() {
@@ -25,6 +31,14 @@ class BrewSessionStatus extends React.Component {
     this.timer = setTimeout(() => {
       this.refreshStatus();
     }, 1000);    
+  }
+
+  refreshChart() {
+    this.props.getBrewSessionData('http://raspberrypi.local:3001/brewSession/REACT_TEST');
+
+    this.chartTimer = setTimeout(() => {
+      this.refreshChart();
+    }, 30000);
   }
 
   startStop() {
@@ -40,8 +54,9 @@ class BrewSessionStatus extends React.Component {
     const {brewSessionStatus} = this.props;
     const labelStyle = {
       float: 'left',
-      'padding-right': '6px'
-    }
+      'paddingRight': '6px'
+    };
+    
     return (
       <div>
         <h2>Brew Session</h2>
@@ -62,6 +77,17 @@ class BrewSessionStatus extends React.Component {
           <label htmlFor="boilTime" style={labelStyle}>Boil Time</label>
           <input type="text" name="boilTime"/>
         </div>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={brewSessionStatus.data.mashTempData}
+            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+            <XAxis dataKey="time" tickFormatter={dateFormater}/>
+            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Tooltip/>
+            <Legend />
+            <Line type="monotone" dataKey="temp" stroke="#8884d8" isAnimationActive={false} activeDot={{r: 8}}/>
+          </LineChart>
+        </ResponsiveContainer>        
         {brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Stop" onClick={this.startStop}/>}
         {!brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Start" onClick={this.startStop}/>}
       </div>
@@ -71,8 +97,13 @@ class BrewSessionStatus extends React.Component {
 
 BrewSessionStatus.propTypes = {
   getIsBrewSessionRunning: PropTypes.func.isRequired,
+  getBrewSessionData: PropTypes.func.isRequired,
   sendBrewSessionStartStop: PropTypes.func.isRequired,
   brewSessionStatus: PropTypes.object.isRequired
 };
+
+function dateFormater(ticks) {
+  return new Date(ticks).toLocaleTimeString();
+}
 
 export default BrewSessionStatus;

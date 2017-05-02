@@ -58,7 +58,6 @@ export function brewSessionStartStopSuccess(status) {
 export function sendBrewSessionStartStop(url) {
     return (dispatch) => {
         dispatch(brewSessionStartStopIsLoading(true));
-        console.log(url);
         fetch(url, {method: 'POST'})
             .then((response) => {
                 if (!response.ok) {
@@ -70,5 +69,41 @@ export function sendBrewSessionStartStop(url) {
             .then((response) => response.json())
             .then((status) => dispatch(brewSessionStartStopSuccess(status)))
             .catch(() => dispatch(brewSessionStartStopHasErrored(true)));
+    };
+}
+
+export function brewSessionDataHasErrored(bool) {
+    return {
+        type: types.READ_BREWSESSION_DATA_FAILED,
+        hasErrored: bool
+    };
+}
+export function brewSessionDataIsLoading(bool) {
+    return {
+        type: types.READ_BREWSESSION_DATA_STARTED,
+        isLoading: bool
+    };
+}
+export function brewSessionDataFetchDataSuccess(data) {
+    return {
+        type: types.READ_BREWSESSION_DATA_SUCCEEDED,
+        data
+    };
+}
+
+export function getBrewSessionData(url) {
+    return (dispatch) => {
+        dispatch(brewSessionDataIsLoading(true));
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(brewSessionDataIsLoading(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((data) => dispatch(brewSessionDataFetchDataSuccess(data)))
+            .catch(() => dispatch(brewSessionDataHasErrored(true)));
     };
 }

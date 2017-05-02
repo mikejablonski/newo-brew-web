@@ -35,3 +35,40 @@ export function getIsBrewSessionRunning(url) {
             .catch(() => dispatch(brewSessionStatusHasErrored(true)));
     };
 }
+
+export function brewSessionStartStopHasErrored(bool) {
+    return {
+        type: types.BREWSESSION_STARTSTOP_FAILED,
+        hasErrored: bool
+    };
+}
+export function brewSessionStartStopIsLoading(bool) {
+    return {
+        type: types.BREWSESSION_STARTSTOP_STARTED,
+        isLoading: bool
+    };
+}
+export function brewSessionStartStopSuccess(status) {
+    return {
+        type: types.BREWSESSION_STARTSTOP_SUCCEEDED,
+        status
+    };
+}
+
+export function sendBrewSessionStartStop(url) {
+    return (dispatch) => {
+        dispatch(brewSessionStartStopIsLoading(true));
+        console.log(url);
+        fetch(url, {method: 'POST'})
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(brewSessionStartStopIsLoading(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((status) => dispatch(brewSessionStartStopSuccess(status)))
+            .catch(() => dispatch(brewSessionStartStopHasErrored(true)));
+    };
+}

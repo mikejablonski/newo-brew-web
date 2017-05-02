@@ -15,6 +15,7 @@ export const BrewSessionPage = (props) => {
       <BrewSessionStatus 
         brewSessionStatus={props.brewSessionStatus} 
         getIsBrewSessionRunning={props.brewSessionStatusActions.getIsBrewSessionRunning}
+        sendBrewSessionStartStop={props.brewSessionStatusActions.sendBrewSessionStartStop}
       />
       <TempStatus
         tempStatus={props.tempStatus}

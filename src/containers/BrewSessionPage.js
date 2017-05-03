@@ -12,21 +12,28 @@ import TempStatus from '../components/TempStatus';
 export const BrewSessionPage = (props) => {
   return (
     <div>
-      <BrewSessionStatus 
-        brewSessionStatus={props.brewSessionStatus} 
-        getIsBrewSessionRunning={props.brewSessionStatusActions.getIsBrewSessionRunning}
-        sendBrewSessionStartStop={props.brewSessionStatusActions.sendBrewSessionStartStop}
-        getBrewSessionData={props.brewSessionStatusActions.getBrewSessionData}
-      />
-      <TempStatus
-        tempStatus={props.tempStatus}
-        getTemp={props.tempStatusActions.getTemp}
-      />
-      <BrewSessionForm
-        getPumpStatus={props.actions.getPumpStatus}
-        getHeaterStatus={props.actions.getHeaterStatus}
-        brewSession={props.brewSession}
-      />
+      <h2>Brew Session</h2>
+      <div className="row">
+        <div className="col-md-10">
+          <BrewSessionStatus 
+            brewSessionStatus={props.brewSessionStatus} 
+            getIsBrewSessionRunning={props.brewSessionStatusActions.getIsBrewSessionRunning}
+            sendBrewSessionStartStop={props.brewSessionStatusActions.sendBrewSessionStartStop}
+            getBrewSessionData={props.brewSessionStatusActions.getBrewSessionData}
+          />
+        </div>
+        <div className="col-md-2">
+          <TempStatus
+            tempStatus={props.tempStatus}
+            getTemp={props.tempStatusActions.getTemp}
+          />
+          <BrewSessionForm
+            getPumpStatus={props.actions.getPumpStatus}
+            getHeaterStatus={props.actions.getHeaterStatus}
+            brewSession={props.brewSession}
+          />
+        </div>
+      </div>       
     </div>
   );
 };

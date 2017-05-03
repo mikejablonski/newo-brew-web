@@ -59,24 +59,32 @@ class BrewSessionStatus extends React.Component {
     
     return (
       <div>
-        <h2>Brew Session</h2>
         <p>Brew Session Running: {brewSessionStatus.isBrewSessionRunning.toString()}</p>
-        <div>
-          <label htmlFor="brewSessionName" style={labelStyle}>Brew Session Name</label>
-          <input type="text" name="brewSessionName"/>
+        <div className="">
+          <form>
+            <div className="form-group row">
+              <label htmlFor="brewSessionName" className="col-sm-2 col-form-label" style={labelStyle}>Session Name</label>
+              <div className="col-sm-4">
+                <input type="text" className="form-control" name="brewSessionName"/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label htmlFor="targetMashTemp" className="col-sm-2 col-form-label" style={labelStyle}>Target Mash Temp</label>
+              <div className="col-sm-2">
+                <input type="text" className="form-control" name="targetMashTemp"/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label htmlFor="mashTime" className="col-sm-2 col-form-label" style={labelStyle}>Mash Hold Time</label>
+              <div className="col-sm-2">
+                <input type="text" className="form-control" name="mashTime"/>
+              </div>
+            </div>
+          </form>
         </div>
-        <div>
-          <label htmlFor="targetMashTemp" style={labelStyle}>Target Mash Temp</label>
-          <input type="text" name="targetMashTemp"/>
-        </div>
-        <div>
-          <label htmlFor="mashTime" style={labelStyle}>Mash Time</label>
-          <input type="text" name="mashTime"/>
-        </div>
-        <div>
-          <label htmlFor="boilTime" style={labelStyle}>Boil Time</label>
-          <input type="text" name="boilTime"/>
-        </div>
+        {brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Stop" onClick={this.startStop}/>}
+        {!brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Start" onClick={this.startStop}/>}
+        <hr/>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={brewSessionStatus.data.mashTempData}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
@@ -87,9 +95,7 @@ class BrewSessionStatus extends React.Component {
             <Legend />
             <Line type="monotone" dataKey="temp" stroke="#8884d8" isAnimationActive={false} activeDot={{r: 8}}/>
           </LineChart>
-        </ResponsiveContainer>        
-        {brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Stop" onClick={this.startStop}/>}
-        {!brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Start" onClick={this.startStop}/>}
+        </ResponsiveContainer>
       </div>
     );
   }

@@ -20,7 +20,7 @@ class BrewSessionStatus extends React.Component {
     this.refreshChart();
     this.chartTimer = setTimeout(() => {
       this.refreshChart();
-    }, 30000);
+    }, 10000);
   }
 
   componentWillUnmount() {
@@ -36,11 +36,14 @@ class BrewSessionStatus extends React.Component {
   }
 
   refreshChart() {
-    this.props.getBrewSessionData('http://raspberrypi.local:3001/brewSession/REACT_TEST');
+    if (this.props.brewSessionStatus.isBrewSessionRunning) {
+      this.props.getBrewSessionData('http://raspberrypi.local:3001/brewSession/' +
+        this.props.brewSessionStatus.sessionName);
+    }
 
     this.chartTimer = setTimeout(() => {
       this.refreshChart();
-    }, 30000);
+    }, 10000);
   }
 
   startStop() {
@@ -56,7 +59,6 @@ class BrewSessionStatus extends React.Component {
   }
 
   updateForm(name, value) {
-    console.log('in updateForm');
     this.props.updateForm(name, value);    
   }
 

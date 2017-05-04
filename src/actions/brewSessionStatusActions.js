@@ -55,10 +55,20 @@ export function brewSessionStartStopSuccess(status) {
     };
 }
 
-export function sendBrewSessionStartStop(url) {
+export function sendBrewSessionStartStop(url, sessionName = 'NA', mashTemp = 0, mashHoldTime = 0) {
     return (dispatch) => {
         dispatch(brewSessionStartStopIsLoading(true));
-        fetch(url, {method: 'POST'})
+        
+        let postBody = {};
+        postBody.sessionName = sessionName;
+        postBody.mashTemp = mashTemp;
+        postBody.mashHoldTime = mashHoldTime;
+
+        fetch(url, {method: 'POST', body: JSON.stringify(postBody), 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }})
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -106,4 +116,12 @@ export function getBrewSessionData(url) {
             .then((data) => dispatch(brewSessionDataFetchDataSuccess(data)))
             .catch(() => dispatch(brewSessionDataHasErrored(true)));
     };
+}
+
+export function updateForm(fieldName, value) {
+    return {
+        type: types.UPDATE_BREWSESSIONSTATUS_FIELD,
+        fieldName,
+        value
+    };    
 }

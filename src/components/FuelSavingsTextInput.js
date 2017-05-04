@@ -8,7 +8,7 @@ const FuelSavingsTextInput = (props) => {
 
   return (
     <input
-      className="small"
+      className="form-control"
       type="text"
       placeholder={props.placeholder}
       value={props.value}

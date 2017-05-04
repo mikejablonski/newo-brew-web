@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import FuelSavingsTextInput from './FuelSavingsTextInput';
 
 class BrewSessionStatus extends React.Component {
   constructor(props, context) {
@@ -8,6 +9,7 @@ class BrewSessionStatus extends React.Component {
 
     this.startStop = this.startStop.bind(this);
     this.refreshStatus = this.refreshStatus.bind(this);
+    this.updateForm = this.updateForm.bind(this);
   }
 
   componentDidMount() {
@@ -46,8 +48,16 @@ class BrewSessionStatus extends React.Component {
       this.props.sendBrewSessionStartStop('http://raspberrypi.local:3001/brew/stop');
     }
     else {
-      this.props.sendBrewSessionStartStop('http://raspberrypi.local:3001/brew/start');
+      this.props.sendBrewSessionStartStop('http://raspberrypi.local:3001/brew/start',
+        this.props.brewSessionStatus.sessionName,
+        this.props.brewSessionStatus.mashTemp,
+        this.props.brewSessionStatus.mashHoldTime);
     }
+  }
+
+  updateForm(name, value) {
+    console.log('in updateForm');
+    this.props.updateForm(name, value);    
   }
 
   render() {
@@ -63,27 +73,27 @@ class BrewSessionStatus extends React.Component {
         <div className="">
           <form>
             <div className="form-group row">
-              <label htmlFor="brewSessionName" className="col-sm-2 col-form-label" style={labelStyle}>Session Name</label>
+              <label htmlFor="sessionName" className="col-sm-2 col-form-label" style={labelStyle}>Session Name</label>
               <div className="col-sm-4">
-                <input type="text" className="form-control" name="brewSessionName"/>
+                <FuelSavingsTextInput name="sessionName" onChange={this.updateForm} value={brewSessionStatus.sessionName}/>
               </div>
             </div>
             <div className="form-group row">
-              <label htmlFor="targetMashTemp" className="col-sm-2 col-form-label" style={labelStyle}>Target Mash Temp</label>
+              <label htmlFor="mashTemp" className="col-sm-2 col-form-label" style={labelStyle}>Target Mash Temp</label>
               <div className="col-sm-2">
-                <input type="text" className="form-control" name="targetMashTemp"/>
+                <FuelSavingsTextInput name="mashTemp" onChange={this.updateForm} value={brewSessionStatus.mashTemp}/>
               </div>
             </div>
             <div className="form-group row">
-              <label htmlFor="mashTime" className="col-sm-2 col-form-label" style={labelStyle}>Mash Hold Time</label>
+              <label htmlFor="mashHoldTime" className="col-sm-2 col-form-label" style={labelStyle}>Mash Hold Time</label>
               <div className="col-sm-2">
-                <input type="text" className="form-control" name="mashTime"/>
+                <FuelSavingsTextInput name="mashHoldTime" onChange={this.updateForm} value={brewSessionStatus.mashHoldTime}/>
               </div>
             </div>
           </form>
         </div>
-        {brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Stop" onClick={this.startStop}/>}
-        {!brewSessionStatus.isBrewSessionRunning && <input type="submit" value="Start" onClick={this.startStop}/>}
+        {brewSessionStatus.isBrewSessionRunning && <input type="submit" className="btn btn-primary" value="Stop" onClick={this.startStop}/>}
+        {!brewSessionStatus.isBrewSessionRunning && <input type="submit" className="btn btn-primary" value="Start" onClick={this.startStop}/>}
         <hr/>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={brewSessionStatus.data.mashTempData}
@@ -105,7 +115,8 @@ BrewSessionStatus.propTypes = {
   getIsBrewSessionRunning: PropTypes.func.isRequired,
   getBrewSessionData: PropTypes.func.isRequired,
   sendBrewSessionStartStop: PropTypes.func.isRequired,
-  brewSessionStatus: PropTypes.object.isRequired
+  brewSessionStatus: PropTypes.object.isRequired,
+  updateForm: PropTypes.func.isRequired
 };
 
 function dateFormater(ticks) {

@@ -22,7 +22,7 @@ class App extends React.Component {
       <div className="container-fluid">
         <ul className="nav nav-tabs">
           <li role="presentation"><Link to="/brew">Brew</Link></li>
-          <li role="presentation"><Link to="/about">History</Link></li>
+          <li role="presentation"><Link to="/history">History</Link></li>
         </ul>      
 
         {this.props.children}

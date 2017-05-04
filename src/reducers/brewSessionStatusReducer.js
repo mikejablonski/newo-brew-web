@@ -1,6 +1,7 @@
 import {READ_BREWSESSION_STARTED, READ_BREWSESSION_SUCCEEDED, READ_BREWSESSION_FAILED,
         BREWSESSION_STARTSTOP_STARTED, BREWSESSION_STARTSTOP_SUCCEEDED, BREWSESSION_STARTSTOP_FAILED,
-        READ_BREWSESSION_DATA_STARTED, READ_BREWSESSION_DATA_SUCCEEDED, READ_BREWSESSION_DATA_FAILED} from '../constants/actionTypes';
+        READ_BREWSESSION_DATA_STARTED, READ_BREWSESSION_DATA_SUCCEEDED, READ_BREWSESSION_DATA_FAILED,
+        UPDATE_BREWSESSIONSTATUS_FIELD} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
 
@@ -58,6 +59,11 @@ export default function brewSessionStatusReducer(state = initialState.brewSessio
           // TODO: set some kind of error message to return and show
           console.log('READ_BREWSESSION_DATA_FAILED ERROR');
           return state;
+
+        case UPDATE_BREWSESSIONSTATUS_FIELD:
+          newState = objectAssign({}, state);
+          newState[action.fieldName] = action.value;
+          return newState;          
 
     default:
       return state;

@@ -20,6 +20,7 @@ export const BrewSessionPage = (props) => {
             getIsBrewSessionRunning={props.brewSessionStatusActions.getIsBrewSessionRunning}
             sendBrewSessionStartStop={props.brewSessionStatusActions.sendBrewSessionStartStop}
             getBrewSessionData={props.brewSessionStatusActions.getBrewSessionData}
+            updateForm={props.brewSessionStatusActions.updateForm}
           />
         </div>
         <div className="col-md-2">

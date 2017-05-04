@@ -21,6 +21,9 @@ export default {
   },
   brewSessionStatus: {
     isBrewSessionRunning: false,
+    sessionName: 'New Beer',
+    mashTemp: 0,
+    mashHoldTime: 0,
     data: {}
   },
   tempStatus: {

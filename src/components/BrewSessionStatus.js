@@ -100,12 +100,12 @@ class BrewSessionStatus extends React.Component {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={brewSessionStatus.data.mashTempData}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="time" tickFormatter={dateFormater}/>
+            <XAxis dataKey="formattedTime" />
             <YAxis/>
             <CartesianGrid strokeDasharray="3 3"/>
             <Tooltip/>
             <Legend />
-            <Line type="monotone" dataKey="temp" stroke="#8884d8" isAnimationActive={false} activeDot={{r: 8}}/>
+            <Line type="monotone" dataKey="tempF" stroke="#8884d8" isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -120,9 +120,5 @@ BrewSessionStatus.propTypes = {
   brewSessionStatus: PropTypes.object.isRequired,
   updateForm: PropTypes.func.isRequired
 };
-
-function dateFormater(ticks) {
-  return new Date(ticks).toLocaleTimeString();
-}
 
 export default BrewSessionStatus;

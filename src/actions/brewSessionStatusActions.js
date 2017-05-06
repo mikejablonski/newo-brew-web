@@ -61,7 +61,8 @@ export function sendBrewSessionStartStop(url, sessionName = 'NA', mashTemp = 0, 
         
         let postBody = {};
         postBody.sessionName = sessionName;
-        postBody.mashTemp = mashTemp;
+        // convert F to C
+        postBody.mashTemp = Number((mashTemp - 32) / 1.8).toFixed(2);
         postBody.mashHoldTime = mashHoldTime;
 
         fetch(url, {method: 'POST', body: JSON.stringify(postBody), 

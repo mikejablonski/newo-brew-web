@@ -6,13 +6,18 @@ const FuelSavingsTextInput = (props) => {
     props.onChange(props.name, e.target.value);
   };
 
+const textInputStyle = {
+    'font-size': '16px'
+  };
+
   return (
     <input
       className="form-control"
       type="text"
       placeholder={props.placeholder}
       value={props.value}
-      onChange={handleChange}/>
+      onChange={handleChange}
+      style={textInputStyle} />
   );
 };
 

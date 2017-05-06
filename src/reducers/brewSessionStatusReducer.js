@@ -15,6 +15,12 @@ export default function brewSessionStatusReducer(state = initialState.brewSessio
       case READ_BREWSESSION_SUCCEEDED:
         newState = objectAssign({}, state);
         newState.isBrewSessionRunning = action.status.isBrewSessionRunning;
+        if (newState.isBrewSessionRunning) {
+          newState.sessionName = action.status.sessionName;
+          newState.mashTemp = action.status.mashTemp;
+          newState.mashHoldTime = action.status.mashHoldTime;
+        }
+      
         return newState;
 
       case READ_BREWSESSION_FAILED:

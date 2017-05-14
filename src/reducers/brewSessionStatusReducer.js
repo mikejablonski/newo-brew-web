@@ -17,7 +17,7 @@ export default function brewSessionStatusReducer(state = initialState.brewSessio
         newState.isBrewSessionRunning = action.status.isBrewSessionRunning;
         if (newState.isBrewSessionRunning) {
           newState.sessionName = action.status.sessionName;
-          newState.mashTemp = action.status.mashTemp;
+          newState.mashTemp = Math.round(Number(action.status.mashTemp * 9/5 + 32).toFixed(2));
           newState.mashHoldTime = action.status.mashHoldTime;
         }
       

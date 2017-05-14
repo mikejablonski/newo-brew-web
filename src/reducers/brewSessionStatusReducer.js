@@ -56,7 +56,6 @@ export default function brewSessionStatusReducer(state = initialState.brewSessio
 
       case READ_BREWSESSION_DATA_SUCCEEDED:
         newState = objectAssign({}, state);
-        //newState.data = objectAssign({} , action.data);
         newState.data = action.data;
         console.log(newState.data);
         return newState;

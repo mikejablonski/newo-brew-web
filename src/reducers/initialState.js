@@ -29,7 +29,7 @@ export default {
   tempStatus: {
     degreesF: 0
   },
-  settings: {
-    tempUnits: 'F'
+  brewHistory: {
+    data: []
   }
 };

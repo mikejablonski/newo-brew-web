@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+var dateFormat = require('dateformat');
 
 class HistoryList extends React.Component {
   constructor(props, context) {
@@ -17,10 +18,12 @@ class HistoryList extends React.Component {
   
   render() {
     const {brewHistory} = this.props;
-    const listItems = brewHistory.data.map((item) =>
+    const listItems = brewHistory.data
+      .sort((a, b) => b.created - a.created)
+      .map((item) =>
       <tr key={item.created}>
         <td>{item.name}</td>  
-        <td>{item.created}</td>
+        <td>{dateFormat(item.created, "mm-dd-yyyy hh:MM:ss TT")}</td>
       </tr>
     );
     

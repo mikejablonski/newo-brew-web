@@ -7,7 +7,7 @@ const FuelSavingsTextInput = (props) => {
   };
 
 const textInputStyle = {
-    'font-size': '16px'
+    'fontSize': '16px'
   };
 
   return (
